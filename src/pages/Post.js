@@ -1,10 +1,53 @@
 import React, { useState, useEffect } from "react";
-import { Card, Form, FormControl, Button } from "react-bootstrap";
+import {
+  Card,
+  Form,
+  FormControl,
+  Button,
+  Image,
+  Spinner,
+} from "react-bootstrap";
+import { useHistory } from "react-router";
 import firebase from "../utils/Firebase";
+import "firebase/firestore";
+
 export default function Post() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [topics, setTopics] = useState([]);
+  const [topicName, setTopicName] = useState("");
+  const [img, setImg] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
+  const previewImg = img
+    ? URL.createObjectURL(img)
+    : "https://www.visa.co.uk/dam/VCOM/placeholder-image.png";
+
+  function newPost(e) {
+    e.preventDefault();
+    setLoading(true);
+
+    const postRef = firebase.firestore().collection("posts").doc();
+
+    postRef
+      .set({
+        title,
+        content,
+        topic: topicName,
+        postTime: firebase.firestore.Timestamp.now(),
+        author: {
+          userName: firebase.auth().currentUser.displayName || "",
+          photoUrl: firebase.auth().currentUser.photoURL || "",
+          uid: firebase.auth().currentUser.uid,
+          email: firebase.auth().currentUser.email,
+        },
+      })
+      .then(() => {
+        setLoading(false);
+        history.push("/");
+      });
+  }
 
   useEffect(() => {
     firebase
@@ -23,11 +66,22 @@ export default function Post() {
     <div>
       <Card className="mt-5 justify-content-center ">
         <Card.Body>
-          <h2 className="text-center m-4">新增貼文</h2>
-          <Form>
-            <Form.Group className="p-4">
+          <h2 className="text-center pt-3">新增貼文</h2>{" "}
+          <Form onSubmit={newPost}>
+            <div className="pt-2 row justify-content-center">
+              <Image src={previewImg} fluid />
+            </div>
+            <Form.Group controlId="formFile" className="pt-3">
+              <Form.Control
+                type="file"
+                onChange={(e) => {
+                  setImg(e.target.files[0]);
+                }}
+              />
+            </Form.Group>
+            <Form.Group className="pt-3">
               <FormControl
-                type="email"
+                type="text"
                 required
                 placeholder="請輸入文章標題"
                 value={title}
@@ -36,15 +90,23 @@ export default function Post() {
                 }}
               ></FormControl>
             </Form.Group>
-            <Form.Group className="p-4">
-              <Form.Control as="select">
+            <Form.Group className="pt-3">
+              <Form.Control
+                as="select"
+                type="text"
+                required
+                value={topicName}
+                onChange={(e) => {
+                  setTopicName(e.target.value);
+                }}
+              >
                 <option>請選擇文章主題</option>
                 {topics.map((topic) => {
                   return <option>{topic.name}</option>;
                 })}
               </Form.Control>
             </Form.Group>
-            <Form.Group className="p-4">
+            <Form.Group className="pt-3">
               <FormControl
                 as="textarea"
                 rows={5}
@@ -56,12 +118,23 @@ export default function Post() {
                 }}
               ></FormControl>
             </Form.Group>
-            <div className="row justify-content-center">
+            <div className="pt-3 row justify-content-center">
               <Button
-                style={{ minWidth: "50px", maxWidth: "100px" }}
                 type="submit"
+                style={{ minWidth: "50px", maxWidth: "100px" }}
+                onLoad={loading}
               >
-                送出
+                {loading ? (
+                  <Spinner
+                    as="span"
+                    variant="light"
+                    size="sm"
+                    role="status"
+                    animation="border"
+                  ></Spinner>
+                ) : (
+                  "送出"
+                )}
               </Button>
             </div>
           </Form>
