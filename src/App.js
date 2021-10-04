@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import LogIn from "./pages/SignIn";
 import Homepage from "./pages/Homepage";
 import Post from "./pages/Post";
+import SinglePost from "./components/SinglePost";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -21,7 +22,7 @@ function App() {
             <Homepage />
           </Container>
         </Route>
-        <Route path="/signup">
+        <Route path="/signup" exact>
           <Container style={{ maxWidth: "600px", minWidth: "300px" }}>
             <SignUp
               email={email}
@@ -33,7 +34,7 @@ function App() {
             />
           </Container>
         </Route>
-        <Route path="/signin">
+        <Route path="/signin" exact>
           <Container style={{ maxWidth: "600px", minWidth: "300px" }}>
             <LogIn
               email={email}
@@ -45,9 +46,14 @@ function App() {
             />
           </Container>
         </Route>
-        <Route path="/post">
+        <Route path="/post" exact>
           <Container style={{ maxWidth: "600px", minWidth: "300px" }}>
             <Post />
+          </Container>
+        </Route>
+        <Route path="/posts/:postId" exact>
+          <Container style={{ maxWidth: "600px", minWidth: "300px" }}>
+            <SinglePost />
           </Container>
         </Route>
       </Switch>

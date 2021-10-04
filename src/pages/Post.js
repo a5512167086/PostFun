@@ -17,7 +17,7 @@ export default function Post() {
   const [content, setContent] = useState("");
   const [topics, setTopics] = useState([]);
   const [topicName, setTopicName] = useState("");
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
