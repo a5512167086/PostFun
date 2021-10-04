@@ -72,7 +72,7 @@ export default function Homepage() {
                     Like {post.likedBy?.length || 0}
                   </Button>
                   <Button disabled variant="outline-secondary">
-                    Comment
+                    Comment {post.commentsCount || 0}
                   </Button>
                   <Card.Footer className="text-muted">
                     {post.postTime.toDate().toLocaleTimeString()}
