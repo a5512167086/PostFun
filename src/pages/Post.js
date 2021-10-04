@@ -10,6 +10,7 @@ import {
 import { useHistory } from "react-router";
 import firebase from "../utils/Firebase";
 import "firebase/firestore";
+import "firebase/storage";
 
 export default function Post() {
   const [title, setTitle] = useState("");
@@ -29,24 +30,33 @@ export default function Post() {
     setLoading(true);
 
     const postRef = firebase.firestore().collection("posts").doc();
+    const imgRef = firebase.storage().ref("post-img/" + postRef.id);
+    const metadata = {
+      contentType: img.type,
+    };
 
-    postRef
-      .set({
-        title,
-        content,
-        topic: topicName,
-        postTime: firebase.firestore.Timestamp.now(),
-        author: {
-          userName: firebase.auth().currentUser.displayName || "",
-          photoUrl: firebase.auth().currentUser.photoURL || "",
-          uid: firebase.auth().currentUser.uid,
-          email: firebase.auth().currentUser.email,
-        },
-      })
-      .then(() => {
-        setLoading(false);
-        history.push("/");
+    imgRef.put(img, metadata).then(() => {
+      imgRef.getDownloadURL().then((imgUrl) => {
+        postRef
+          .set({
+            title,
+            content,
+            topic: topicName,
+            imgUrl,
+            postTime: firebase.firestore.Timestamp.now(),
+            author: {
+              userName: firebase.auth().currentUser.displayName || "",
+              photoUrl: firebase.auth().currentUser.photoURL || "",
+              uid: firebase.auth().currentUser.uid,
+              email: firebase.auth().currentUser.email,
+            },
+          })
+          .then(() => {
+            setLoading(false);
+            history.push("/");
+          });
       });
+    });
   }
 
   useEffect(() => {

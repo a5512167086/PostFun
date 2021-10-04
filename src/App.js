@@ -7,20 +7,19 @@ import LogIn from "./pages/SignIn";
 import Homepage from "./pages/Homepage";
 import Post from "./pages/Post";
 
-
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-    
-
 
   return (
     <BrowserRouter>
       <Header />
       <Switch>
         <Route path="/" exact>
-          <Homepage />
+          <Container style={{ minWidth: "300px" }}>
+            <Homepage />
+          </Container>
         </Route>
         <Route path="/signup">
           <Container style={{ maxWidth: "600px", minWidth: "300px" }}>
@@ -48,7 +47,7 @@ function App() {
         </Route>
         <Route path="/post">
           <Container style={{ maxWidth: "600px", minWidth: "300px" }}>
-            <Post></Post>
+            <Post />
           </Container>
         </Route>
       </Switch>

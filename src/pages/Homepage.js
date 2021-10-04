@@ -22,7 +22,7 @@ export default function Homepage() {
   return (
     <div className="mt-5">
       <Row>
-        <Col className="d-flex justify-content-center">
+        <Col className="d-flex">
           <Topics topics={topics}></Topics>
         </Col>
         <Col className="d-flex justify-content-center">主頁</Col>
