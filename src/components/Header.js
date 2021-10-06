@@ -27,7 +27,7 @@ export default function Header() {
             <Nav>
               {user ? (
                 <>
-                  <Nav.Link as={Link} to="/post">
+                  <Nav.Link as={Link} to="/newpost">
                     新增貼文
                   </Nav.Link>
                   <Nav.Link as={Link} to="/myUser">

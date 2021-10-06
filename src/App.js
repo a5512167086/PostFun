@@ -4,8 +4,8 @@ import { Container } from "react-bootstrap";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/SignIn";
-import Homepage from "./pages/Homepage";
-import Post from "./pages/Post";
+import Posts from "./pages/Posts";
+import NewPost from "./pages/NewPost";
 import SinglePost from "./components/SinglePost";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Container style={{ minWidth: "300px" }}>
-            <Homepage />
+            <Posts />
           </Container>
         </Route>
         <Route path="/signup" exact>
@@ -46,9 +46,9 @@ function App() {
             />
           </Container>
         </Route>
-        <Route path="/post" exact>
+        <Route path="/newpost" exact>
           <Container style={{ maxWidth: "600px", minWidth: "300px" }}>
-            <Post />
+            <NewPost />
           </Container>
         </Route>
         <Route path="/posts/:postId" exact>

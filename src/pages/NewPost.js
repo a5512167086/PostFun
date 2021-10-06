@@ -12,7 +12,7 @@ import firebase from "../utils/Firebase";
 import "firebase/firestore";
 import "firebase/storage";
 
-export default function Post() {
+export default function NewPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [topics, setTopics] = useState([]);

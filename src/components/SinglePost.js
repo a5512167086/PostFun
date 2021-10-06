@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Card, Image, Button, Form, Spinner } from "react-bootstrap";
+import { Card, Image, Button, Form } from "react-bootstrap";
 import firebase from "../utils/Firebase";
 import "firebase/firestore";
 

@@ -3,7 +3,7 @@ import { Row, Col, Card, Image, Button } from "react-bootstrap";
 import Topics from "../components/Topics";
 import firebase from "../utils/Firebase";
 
-export default function Homepage() {
+export default function Posts() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
