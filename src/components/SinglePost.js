@@ -20,6 +20,7 @@ export default function SinglePost() {
       .onSnapshot((snapshot) => {
         const data = snapshot.data();
         setPost(data);
+        console.log(data);
       });
   });
 
@@ -34,7 +35,6 @@ export default function SinglePost() {
         const data = snapshot.docs.map((doc) => {
           return doc.data();
         });
-        console.log(data);
         setComments(data);
       });
   });
@@ -93,9 +93,9 @@ export default function SinglePost() {
       <Card className="mt-5" style={{ width: "40rem" }}>
         <div className="d-flex ">
           <div>
-            {post.photoUrl ? (
+            {post.author?.photoUrl ? (
               <Image
-                src={post.photoUrl}
+                src={post.author.photoUrl}
                 roundedCircle
                 style={{ maxWidth: "40px" }}
               />
@@ -107,7 +107,7 @@ export default function SinglePost() {
               />
             )}
           </div>
-          <p className="m-2">{post.userName || "User"}</p>
+          <p className="m-2">{post.author?.userName || "User"}</p>
         </div>
         <div className="row justify-content-center ">
           <Card.Img

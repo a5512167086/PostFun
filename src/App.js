@@ -16,6 +16,7 @@ import NewPost from "./pages/NewPost";
 import SinglePost from "./components/SinglePost";
 import MyPost from "./pages/MyPost";
 import MyLike from "./pages/MyLike";
+import MyUser from "./pages/MyUser";
 
 function App() {
   const [email, setEmail] = useState("");
@@ -78,7 +79,7 @@ function App() {
                       我的文章
                     </ListGroupItem>
                     <ListGroupItem action as={Link} to="/myUser/liked">
-                      收藏文章
+                      按讚文章
                     </ListGroupItem>
                   </ListGroup>
                 </ButtonGroup>
@@ -92,6 +93,11 @@ function App() {
                 <Route path="/myUser/liked">
                   <Col className="row justify-content-center">
                     <MyLike />
+                  </Col>
+                </Route>
+                <Route path="/myUser/info">
+                  <Col className="row justify-content-center">
+                    <MyUser />
                   </Col>
                 </Route>
               </Switch>

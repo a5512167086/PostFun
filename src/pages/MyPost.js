@@ -24,6 +24,7 @@ export default function MyPost() {
   return (
     <div className="mt-5">
       <Row>
+        <h2>我的文章</h2>
         <Col className="d-flex justify-content-center">
           <Col>
             {posts.map((post) => {

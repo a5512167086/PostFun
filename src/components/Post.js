@@ -11,14 +11,14 @@ export default function Post({ post }) {
               <div>
                 <Image
                   src={
-                    post.photoUrl ||
+                    post.author?.photoUrl ||
                     "https://secure.gravatar.com/avatar/43e02ae5f95ee3d02d29842a4c2d73d0?s=500&d=mm&r=g"
                   }
                   roundedCircle
                   style={{ maxWidth: "30px" }}
                 />
               </div>
-              <p>{post.userName || "User"}</p>
+              <p>{post.author.userName || "User"}</p>
             </div>
             <div className="row justify-content-center ">
               <Card.Img
