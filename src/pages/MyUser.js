@@ -63,7 +63,6 @@ function MyPhoto({ user }) {
   const handleClose = () => setModalOpen(false);
   const handleShow = () => setModalOpen(true);
   const [imgFile, setImgFile] = useState(null);
-  const previewImgUrl = imgFile ? URL.createObjectURL(imgFile) : user?.photoUrl;
 
   function updateUserPhoto() {
     const fileRef = firebase.storage().ref("user-photo/" + user.uid);
