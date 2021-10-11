@@ -1,20 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import firebase from "../utils/Firebase";
 
-export default function Header() {
-  const [user, setUser] = useState(null);
-
-  React.useEffect(() => {
-    firebase.auth().onAuthStateChanged((currentUser) => {
-      setUser(currentUser);
-    });
-  });
-
+export default function Header({ user }) {
   return (
     <div>
-      <Navbar expand="lg" bg="dark" variant="dark">
+      <Navbar expand="lg" bg="dark" variant="dark"></Navbar>
         <Container>
           <Navbar.Brand as={Link} to="/">
             <h1>Post Fun</h1>

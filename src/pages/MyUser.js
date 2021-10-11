@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Row, Col, Button, Modal, Form, Image } from "react-bootstrap";
 import firebase from "../utils/Firebase";
 
@@ -203,13 +203,7 @@ function MyPassword({ user }) {
   );
 }
 
-export default function MyUser() {
-  const [user, setUser] = useState({});
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      setUser(user);
-    });
-  });
+export default function MyUser({ user }) {
   return (
     <div className="mt-5">
       <Row>
