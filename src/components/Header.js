@@ -6,7 +6,7 @@ import firebase from "../utils/Firebase";
 export default function Header({ user }) {
   return (
     <div>
-      <Navbar expand="lg" bg="dark" variant="dark"></Navbar>
+      <Navbar expand="lg" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand as={Link} to="/">
             <h1>Post Fun</h1>
