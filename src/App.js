@@ -84,6 +84,7 @@ function App() {
                   </ListGroup>
                 </ButtonGroup>
               </Col>
+
               <Switch>
                 <Route path="/myUser/postHistory">
                   <Col className="row justify-content-center">

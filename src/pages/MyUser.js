@@ -4,9 +4,9 @@ import firebase from "../utils/Firebase";
 
 function MyName({ user }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [displayName, setDisplayName] = useState("");
   const handleClose = () => setModalOpen(false);
   const handleShow = () => setModalOpen(true);
-  const [displayName, setDisplayName] = useState("");
 
   function updateUserName() {
     user.updateProfile({ displayName }).then(() => {
@@ -60,9 +60,9 @@ function MyName({ user }) {
 
 function MyPhoto({ user }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [imgFile, setImgFile] = useState(null);
   const handleClose = () => setModalOpen(false);
   const handleShow = () => setModalOpen(true);
-  const [imgFile, setImgFile] = useState(null);
 
   function updateUserPhoto() {
     const fileRef = firebase.storage().ref("user-photo/" + user.uid);
@@ -128,8 +128,27 @@ function MyPhoto({ user }) {
 
 function MyPassword({ user }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const handleClose = () => setModalOpen(false);
   const handleShow = () => setModalOpen(true);
+
+  function updatePassword() {
+    const credential = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      oldPassword
+    );
+    user
+      .reauthenticateWithCredential(credential)
+      .then(() => {
+        user.updatePassword(newPassword);
+      })
+      .then(() => {
+        setModalOpen(false);
+        setNewPassword("");
+        setOldPassword("");
+      });
+  }
 
   return (
     <Row className="mt-5">
@@ -148,7 +167,24 @@ function MyPassword({ user }) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
-              <Form.Control type="password" placeholder="輸入新的密碼" />
+              <Form.Control
+                type="password"
+                value={oldPassword}
+                placeholder="輸入舊密碼"
+                onChange={(e) => {
+                  setOldPassword(e.target.value);
+                }}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="password"
+                value={newPassword}
+                placeholder="輸入新密碼"
+                onChange={(e) => {
+                  setNewPassword(e.target.value);
+                }}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -157,7 +193,7 @@ function MyPassword({ user }) {
             關閉視窗
           </Button>
           <Form.Group>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={updatePassword}>
               儲存
             </Button>{" "}
           </Form.Group>
