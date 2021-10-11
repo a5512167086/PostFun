@@ -12,18 +12,33 @@ export default function PostsPage() {
   const currentTopic = urlSearchParams.get("topic");
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("posts")
-      .where("topic", "==", currentTopic)
-      .get()
-      .then((snapshot) => {
-        const data = snapshot.docs.map((docSnapshot) => {
-          const id = docSnapshot.id;
-          return { ...docSnapshot.data(), id };
+    if (currentTopic) {
+      firebase
+        .firestore()
+        .collection("posts")
+        .where("topic", "==", currentTopic)
+        .get()
+        .then((snapshot) => {
+          const data = snapshot.docs.map((docSnapshot) => {
+            const id = docSnapshot.id;
+            return { ...docSnapshot.data(), id };
+          });
+          setPosts(data);
         });
-        setPosts(data);
-      });
+    } else {
+      firebase
+        .firestore()
+        .collection("posts")
+        .orderBy("postTime", "desc")
+        .get()
+        .then((snapshot) => {
+          const data = snapshot.docs.map((docSnapshot) => {
+            const id = docSnapshot.id;
+            return { ...docSnapshot.data(), id };
+          });
+          setPosts(data);
+        });
+    }
   }, [currentTopic]);
 
   return (
