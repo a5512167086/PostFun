@@ -3,14 +3,19 @@ import { Row, Col } from "react-bootstrap";
 import Topics from "../components/Topics";
 import firebase from "../utils/Firebase";
 import Post from "../components/Post";
+import { useLocation } from "react-router";
 
 export default function PostsPage() {
   const [posts, setPosts] = useState([]);
+  const location = useLocation();
+  const urlSearchParams = new URLSearchParams(location.search);
+  const currentTopic = urlSearchParams.get("topic");
 
   useEffect(() => {
     firebase
       .firestore()
       .collection("posts")
+      .where("topic", "==", currentTopic)
       .get()
       .then((snapshot) => {
         const data = snapshot.docs.map((docSnapshot) => {
@@ -19,7 +24,7 @@ export default function PostsPage() {
         });
         setPosts(data);
       });
-  }, []);
+  }, [currentTopic]);
 
   return (
     <div className="mt-5">

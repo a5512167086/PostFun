@@ -35,14 +35,14 @@ function App() {
     <BrowserRouter>
       <Header user={user} setUser={setUser} />
       <Switch>
-        <Route path="/" exact>
+        <Route path="/posts" exact>
           <Container style={{ minWidth: "300px" }}>
             <PostsPage />
           </Container>
         </Route>
         <Route path="/signup" exact>
           {user ? (
-            <Redirect to="/" />
+            <Redirect to="/posts" />
           ) : (
             <Container style={{ maxWidth: "600px", minWidth: "300px" }}>
               <SignUp
@@ -74,7 +74,7 @@ function App() {
               <NewPost />
             </Container>
           ) : (
-            <Redirect to="/" />
+            <Redirect to="/posts" />
           )}
         </Route>
         <Route path="/posts/:postId" exact>
@@ -123,7 +123,7 @@ function App() {
               </Row>
             </Container>
           ) : (
-            <Redirect to="/" />
+            <Redirect to="/posts" />
           )}
         </Route>
       </Switch>

@@ -8,7 +8,7 @@ export default function Header({ user }) {
     <div>
       <Navbar expand="lg" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand as={Link} to="/posts">
             <h1>Post Fun</h1>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
