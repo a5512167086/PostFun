@@ -35,6 +35,11 @@ function App() {
     <BrowserRouter>
       <Header user={user} setUser={setUser} />
       <Switch>
+        <Route path="/" exact>
+          <Container style={{ minWidth: "300px" }}>
+            <PostsPage />
+          </Container>
+        </Route>
         <Route path="/posts" exact>
           <Container style={{ minWidth: "300px" }}>
             <PostsPage />
